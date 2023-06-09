@@ -1,0 +1,5 @@
+.customDrawer {
+  :global(.ant-drawer-body) {
+    @apply p-0;
+  }
+}

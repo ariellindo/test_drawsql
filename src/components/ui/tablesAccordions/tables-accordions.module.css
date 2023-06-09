@@ -1,0 +1,11 @@
+.accordionItemHead {
+  @apply w-full;
+}
+
+.accordionItemContent {
+  @apply w-full;
+}
+
+.accordionItemFooter {
+  @apply w-full;
+}

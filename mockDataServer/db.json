@@ -1,0 +1,34 @@
+{
+  "tables": [
+    {
+      "id": 1,
+      "name": "table1",
+      "columns": [
+        {
+          "name": "column1",
+          "type": "int",
+          "primary": true
+        },
+        {
+          "name": "column2",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "table2",
+      "columns": [
+        {
+          "name": "column1",
+          "type": "int",
+          "primary": true
+        },
+        {
+          "name": "column2",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}
