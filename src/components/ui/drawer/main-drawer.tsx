@@ -11,18 +11,37 @@ import {
 import style from "./main-drawer.module.css";
 import Accordion from "../tablesAccordions";
 import api from "@/api";
+import { useTablesStore } from "@/stores/tablesStores";
+
+export const emptyTable = {
+  tableName: "",
+  fields: [
+    {
+      columnName: "id",
+      columnType: "int",
+    },
+  ],
+};
 
 export default function MainDrawer() {
   const [openDrawer, setOpenDrawer] = useState(false);
   const toggleDrawer = () => setOpenDrawer(!openDrawer);
+  const addTable = useTablesStore((state) => state.addTable);
+  const initTables = useTablesStore((state) => state.initTables);
+  const tables = useTablesStore((state) => state.tables);
 
   useEffect(() => {
     let tables = [];
     async function getTables() {
-      tables = await api.schemas.getTables();
+      try {
+        tables = await api.schemas.getTables();
+        initTables(tables);
+      } catch (error) {
+        console.log(error);
+      }
     }
-    getTables();
-  }, []);
+    const tablesLoadded = getTables();
+  }, [initTables]);
 
   // callbacks
   const showDrawer = () => {
@@ -40,7 +59,7 @@ export default function MainDrawer() {
     console.log("add new table");
   };
 
-  // console.log(tables);
+  console.log(tables);
   return (
     <>
       <div
