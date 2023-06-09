@@ -37,8 +37,8 @@ export default function DrawingBoard() {
         onConnect={onConnect}
         fitView
       >
-        <Controls />
-        <MiniMap />
+        <Controls position="bottom-right" />
+        <MiniMap position="bottom-left" />
         <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
       </ReactFlow>
     </div>

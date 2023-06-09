@@ -2,4 +2,8 @@
   :global(.ant-drawer-body) {
     @apply p-0;
   }
+
+  :global(.ant-drawer-header) {
+    @apply p-2;
+  }
 }
