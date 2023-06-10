@@ -4,7 +4,7 @@ import {
   DeleteOutlined,
   EllipsisOutlined,
 } from "@ant-design/icons";
-import { MouseEvent, useState } from "react";
+import { useState } from "react";
 import TableFields from "./tableFields";
 import { Dropdown, MenuProps } from "antd";
 
@@ -18,7 +18,7 @@ export type AccordionItemProps = {
 export type field = {
   columnName: string;
   columnType: columnType;
-  primaryKey: boolean;
+  primaryKey?: boolean;
 };
 
 export type columnType =
@@ -31,6 +31,7 @@ export type columnType =
 
 export default function AccordionItem({ data }: AccordionItemProps) {
   const [itemOpen, setItemOpen] = useState(false);
+  const { tableName, fields } = data;
 
   const toggleItem = () => {
     setItemOpen(!itemOpen);
@@ -62,12 +63,12 @@ export default function AccordionItem({ data }: AccordionItemProps) {
   return (
     <div className="flex flex-col">
       <div
-        className={`accordionItemHead w-full min-h-40 bg-blue-300 text-blue-700 font-bold p-2 flex flex-row justify-between items-center cursor-pointer `}
+        className={`accordionItemHead w-full min-h-40 bg-blue-300 text-blue-700 font-bold p-2 flex flex-row justify-between items-center cursor-pointer hover:bg-blue-400/80 transition-colors`}
         onClick={() => toggleItem()}
       >
         <div className="flex items-center">
           {itemOpen ? <CaretDownOutlined /> : <CaretRightOutlined />}
-          <span className="ml-2">table_1</span>
+          <span className="ml-2">{tableName}</span>
         </div>
 
         <Dropdown menu={menuProps} placement="bottomLeft" trigger={["click"]}>
@@ -86,13 +87,15 @@ export default function AccordionItem({ data }: AccordionItemProps) {
         }`}
       >
         <div className={`accordionItemContent w-full min-h-14`}>
-          <TableFields />
+          {fields.map((field, index) => (
+            <TableFields key={index} field={field} />
+          ))}
         </div>
         <div
           className={`accordionItemFooter w-full min-h-14 border-t border-t-slate-100 p-2 flex flex-row justify-end items-center`}
         >
           <button
-            onClick={() => addColumn({ tableName: data.tableName })}
+            onClick={() => addColumn({ tableName: tableName })}
             className="p-2 border border-emerald-700 rounded-md text-emerald-700 hover:bg-emerald-50 transition-colors"
           >
             Add Column

@@ -12,8 +12,9 @@ import style from "./main-drawer.module.css";
 import Accordion from "../tablesAccordions";
 import api from "@/api";
 import { useTablesStore } from "@/stores/tablesStores";
+import { Table } from "@/stores/tablesStores";
 
-export const emptyTable = {
+export const emptyTable: Table = {
   tableName: "",
   fields: [
     {
@@ -56,7 +57,7 @@ export default function MainDrawer() {
   const drawerBtnClass = openDrawer ? `${drawerWidth + 10}px` : "12px";
 
   const addNewTable = () => {
-    console.log("add new table");
+    addTable(emptyTable);
   };
 
   console.log(tables);
@@ -98,7 +99,7 @@ export default function MainDrawer() {
           </div>
         }
       >
-        <Accordion tables={[]} />
+        <Accordion tables={tables} />
       </Drawer>
     </>
   );

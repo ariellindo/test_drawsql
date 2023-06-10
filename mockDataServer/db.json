@@ -1,32 +1,30 @@
 {
   "tables": [
     {
-      "id": 1,
-      "name": "table1",
-      "columns": [
+      "tableName": "table_1",
+      "fields": [
         {
-          "name": "column1",
-          "type": "int",
+          "columnName": "column1",
+          "columnType": "int",
           "primary": true
         },
         {
-          "name": "column2",
-          "type": "string"
+          "columnName": "column2",
+          "columnType": "string"
         }
       ]
     },
     {
-      "id": 2,
-      "name": "table2",
-      "columns": [
+      "tableName": "table_2",
+      "fields": [
         {
-          "name": "column1",
-          "type": "int",
+          "columnName": "column1",
+          "columnType": "int",
           "primary": true
         },
         {
-          "name": "column2",
-          "type": "string"
+          "columnName": "column2",
+          "columnType": "string"
         }
       ]
     }
