@@ -14,6 +14,7 @@ import { useTablesStore } from "@/stores/tablesStores";
 import { Table } from "@/stores/tablesStores";
 
 import "reactflow/dist/style.css";
+import DbTable from "./dbTableNode";
 
 const initialNodes = [
   { id: "1", position: { x: 0, y: 0 }, data: { label: "1" } },
@@ -23,7 +24,6 @@ const initialNodes = [
 export default function DrawingBoard() {
   const tables = useTablesStore((state) => state.tables);
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
-  const [tablesNodes, setTablesNodes] = useNodesState([]);
 
   useEffect(() => {
     const initialTablesNodes = tables.map((table, index) => ({
@@ -31,13 +31,23 @@ export default function DrawingBoard() {
       position: { x: 0, y: index * 50 },
       data: { label: table.tableName },
     }));
-    setTablesNodes(initialTablesNodes);
     setNodes(initialTablesNodes);
-  }, [tables, setTablesNodes, setNodes]);
+  }, [tables, setNodes]);
+
+  const nodeTypes = { dbTable: DbTable };
+  const rfStyle = {
+    backgroundColor: "#B8CEFF",
+  };
 
   return (
     <div className="h-[calc(100vh-56px)] w-screen bg-slate-100">
-      <ReactFlow nodes={nodes} onNodesChange={onNodesChange} fitView>
+      <ReactFlow
+        nodes={nodes}
+        onNodesChange={onNodesChange}
+        fitView
+        nodeTypes={nodeTypes}
+        style={rfStyle}
+      >
         <Controls position="bottom-right" />
         <MiniMap position="bottom-left" />
         <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
