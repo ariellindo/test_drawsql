@@ -16,6 +16,7 @@ import { Table } from "@/stores/tablesStores";
 
 export const emptyTable: Table = {
   tableName: "",
+  position: { x: 0, y: 100 },
   fields: [
     {
       columnName: "id",
@@ -60,7 +61,6 @@ export default function MainDrawer() {
     addTable(emptyTable);
   };
 
-  console.log(tables);
   return (
     <>
       <div

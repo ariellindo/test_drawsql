@@ -3,6 +3,7 @@ import { create } from "zustand";
 
 export type Table = {
   tableName: string;
+  position: { x: number; y: number };
   fields: field[];
 };
 
@@ -13,6 +14,10 @@ type TablesStore = {
   removeTable: (tableName: string) => void;
   addColumnToTable: (tableName: string, field: field) => void;
   removeColumnFromTable: (tableName: string, fieldIndex: number) => void;
+  updateTablePosition: (
+    tableName: string,
+    position: { x: number; y: number }
+  ) => void;
 };
 
 export const useTablesStore = create<TablesStore>((set) => ({
@@ -52,6 +57,25 @@ export const useTablesStore = create<TablesStore>((set) => ({
       const newTable = {
         ...table,
         fields: table.fields.filter((_, index) => index !== fieldIndex),
+      };
+
+      return {
+        tables: state.tables.map((table) =>
+          table.tableName === tableName ? newTable : table
+        ),
+      };
+    }),
+  updateTablePosition: (
+    tableName: string,
+    position: { x: number; y: number }
+  ) =>
+    set((state) => {
+      const table = state.tables.find((table) => table.tableName === tableName);
+      if (!table) return state;
+
+      const newTable = {
+        ...table,
+        position,
       };
 
       return {

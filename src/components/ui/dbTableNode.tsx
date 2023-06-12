@@ -2,7 +2,6 @@ import { Handle, Position } from "reactflow";
 import style from "./dbTableNode.module.css";
 
 export default function DbTable({ data, isConnectable }: any) {
-  console.log(data);
   return (
     <div className="border border-slate-600 rounded-md w-40 shadow-md shadow-slate-700/30 bg-white flex flex-col overflow-hidden">
       <div className="tableName text-center font-semibold text-base border-b border-slate-400 bg-slate-200">
