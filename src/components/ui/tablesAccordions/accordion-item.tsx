@@ -12,13 +12,13 @@ import { useTablesStore } from "@/stores/tablesStores";
 export type AccordionItemProps = {
   data: {
     tableName: string;
-    fields: field[];
+    fields: Field[];
   };
   isOpen: boolean;
   toggleTable: (tableName: string) => void;
 };
 
-export type field = {
+export type Field = {
   columnName: string;
   columnType: columnType;
   primaryKey?: boolean;
@@ -49,7 +49,7 @@ export default function AccordionItem({
     const table = tables.find((table) => table.tableName === tableName);
     const fields = table?.fields;
 
-    const newField: field = {
+    const newField: Field = {
       columnName: `column_${fields && +fields?.length + 1}`,
       columnType: "char",
     };

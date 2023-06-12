@@ -1,11 +1,11 @@
 import { DeleteOutlined, EllipsisOutlined } from "@ant-design/icons";
 import { Dropdown, type MenuProps } from "antd";
-import { type field } from "./accordion-item";
+import { type Field } from "./accordion-item";
 import { useState, type ChangeEvent } from "react";
 import { useTablesStore } from "@/stores/tablesStores";
 
 type TableFieldsProps = {
-  field: field;
+  field: Field;
   tableName: string;
   fieldIndex: number;
 };
@@ -37,7 +37,7 @@ export default function TableFields({
 
   const onChangeField = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    const newColumnField: field = { ...columnField, [name]: value };
+    const newColumnField: Field = { ...columnField, [name]: value };
 
     setColumnField(newColumnField);
     updateFieldsForTable(tableName, fieldIndex, newColumnField);

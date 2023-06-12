@@ -1,10 +1,10 @@
-import { field } from "@/components/ui/tablesAccordions/accordion-item";
+import { Field } from "@/components/ui/tablesAccordions/accordion-item";
 import { create } from "zustand";
 
 export type Table = {
   tableName: string;
   position: { x: number; y: number };
-  fields: field[];
+  fields: Field[];
 };
 
 type TablesStore = {
@@ -12,7 +12,7 @@ type TablesStore = {
   addTable: (table: Table) => void;
   initTables: (tables: Table[]) => void;
   removeTable: (tableName: string) => void;
-  addColumnToTable: (tableName: string, field: field) => void;
+  addColumnToTable: (tableName: string, field: Field) => void;
   removeColumnFromTable: (tableName: string, fieldIndex: number) => void;
   updateTablePosition: (
     tableName: string,
@@ -21,7 +21,7 @@ type TablesStore = {
   updateFieldsForTable: (
     tableName: string,
     fieldIndex: number,
-    field: field
+    field: Field
   ) => void;
 };
 
@@ -38,7 +38,7 @@ export const useTablesStore = create<TablesStore>((set) => ({
       return { tables: [...state.tables, newTable] };
     });
   },
-  addColumnToTable: (tableName: string, field: field) =>
+  addColumnToTable: (tableName: string, field: Field) =>
     set((state) => {
       const table = state.tables.find((t) => t.tableName === tableName);
       if (!table) return state;
@@ -54,7 +54,7 @@ export const useTablesStore = create<TablesStore>((set) => ({
         ),
       };
     }),
-  updateFieldsForTable: (tableName: string, fieldIndex: number, field: field) =>
+  updateFieldsForTable: (tableName: string, fieldIndex: number, field: Field) =>
     set((state) => {
       const table = state.tables.find((t) => t.tableName === tableName);
       if (!table) return state;
