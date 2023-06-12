@@ -11,10 +11,11 @@ import ReactFlow, {
   addEdge,
 } from "reactflow";
 import { useTablesStore } from "@/stores/tablesStores";
-import { Table } from "@/stores/tablesStores";
 
 import "reactflow/dist/style.css";
 import DbTable from "./dbTableNode";
+
+const nodeTypes = { dbTable: DbTable };
 
 export default function DrawingBoard() {
   const tables = useTablesStore((state) => state.tables);
@@ -25,12 +26,11 @@ export default function DrawingBoard() {
       id: table.tableName,
       position: { x: 0, y: index * 50 },
       type: "dbTable",
-      data: { label: table.tableName },
+      data: { label: table.tableName, fields: table.fields },
     }));
     setNodes(initialTablesNodes);
   }, [tables, setNodes]);
 
-  const nodeTypes = { dbTable: DbTable };
   const rfStyle = {
     // backgroundColor: "#B8CEFF",
   };
@@ -41,7 +41,7 @@ export default function DrawingBoard() {
         nodes={nodes}
         onNodesChange={onNodesChange}
         fitView
-        // nodeTypes={nodeTypes}
+        nodeTypes={nodeTypes}
         style={rfStyle}
       >
         <Controls position="bottom-right" />
