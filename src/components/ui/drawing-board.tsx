@@ -16,11 +16,6 @@ import { Table } from "@/stores/tablesStores";
 import "reactflow/dist/style.css";
 import DbTable from "./dbTableNode";
 
-const initialNodes = [
-  { id: "1", position: { x: 0, y: 0 }, data: { label: "1" } },
-  { id: "2", position: { x: 0, y: 100 }, data: { label: "2" } },
-];
-
 export default function DrawingBoard() {
   const tables = useTablesStore((state) => state.tables);
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -29,6 +24,7 @@ export default function DrawingBoard() {
     const initialTablesNodes = tables.map((table, index) => ({
       id: table.tableName,
       position: { x: 0, y: index * 50 },
+      type: "dbTable",
       data: { label: table.tableName },
     }));
     setNodes(initialTablesNodes);
@@ -36,7 +32,7 @@ export default function DrawingBoard() {
 
   const nodeTypes = { dbTable: DbTable };
   const rfStyle = {
-    backgroundColor: "#B8CEFF",
+    // backgroundColor: "#B8CEFF",
   };
 
   return (
@@ -45,7 +41,7 @@ export default function DrawingBoard() {
         nodes={nodes}
         onNodesChange={onNodesChange}
         fitView
-        nodeTypes={nodeTypes}
+        // nodeTypes={nodeTypes}
         style={rfStyle}
       >
         <Controls position="bottom-right" />

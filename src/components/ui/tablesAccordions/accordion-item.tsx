@@ -7,6 +7,7 @@ import {
 import { useState } from "react";
 import TableFields from "./tableFields";
 import { Dropdown, MenuProps } from "antd";
+import { useTablesStore } from "@/stores/tablesStores";
 
 export type AccordionItemProps = {
   data: {
@@ -32,13 +33,23 @@ export type columnType =
 export default function AccordionItem({ data }: AccordionItemProps) {
   const [itemOpen, setItemOpen] = useState(false);
   const { tableName, fields } = data;
+  const addColumnToTable = useTablesStore((state) => state.addColumnToTable);
+  const tables = useTablesStore((state) => state.tables);
 
   const toggleItem = () => {
     setItemOpen(!itemOpen);
   };
 
   function addColumn({ tableName }: { tableName: string }): void {
-    console.log(tableName);
+    const table = tables.find((table) => table.tableName === tableName);
+    const fields = table?.fields;
+
+    const newField: field = {
+      columnName: `column_${fields && +fields?.length + 1}`,
+      columnType: "char",
+    };
+
+    addColumnToTable(tableName, newField);
   }
 
   const handleMenuClick: MenuProps["onClick"] = (e) => {
@@ -47,8 +58,8 @@ export default function AccordionItem({ data }: AccordionItemProps) {
 
   const items: MenuProps["items"] = [
     {
-      label: "Eliminar Columna",
-      key: "1",
+      label: "Eliminar tabla",
+      key: "eliminar-tabla",
       icon: <DeleteOutlined />,
       danger: true,
     },
@@ -59,7 +70,6 @@ export default function AccordionItem({ data }: AccordionItemProps) {
     onClick: handleMenuClick,
   };
 
-  // console.log(data);
   return (
     <div className="flex flex-col">
       <div
@@ -88,7 +98,12 @@ export default function AccordionItem({ data }: AccordionItemProps) {
       >
         <div className={`accordionItemContent w-full min-h-14`}>
           {fields.map((field, index) => (
-            <TableFields key={index} field={field} />
+            <TableFields
+              key={index}
+              field={field}
+              tableName={tableName}
+              fieldIndex={index}
+            />
           ))}
         </div>
         <div
