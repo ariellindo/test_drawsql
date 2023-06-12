@@ -3,25 +3,23 @@
 import { Table } from "@/stores/tablesStores";
 import AccordionItem from "./accordion-item";
 import { useState } from "react";
-
-// import style from "./tables-accordions.module.css";
+import { useTableUXStore } from "@/stores/tableUXStore";
 
 type AccordionProps = {
   tables: Table[];
 };
 
-//
-// Main component, for complex accordion
-//
 export default function Accordion({ tables = [] }: AccordionProps) {
   const [tableOpen, setTableOpen] = useState<string>("");
+  const setSelectedTable = useTableUXStore((state) => state.setSelectedTable);
 
   const toggleTable = (tableName: string) => {
     if (tableOpen === tableName) {
       setTableOpen("");
+      setSelectedTable(null);
       return;
     }
-
+    setSelectedTable(tableName);
     setTableOpen(tableName);
   };
 

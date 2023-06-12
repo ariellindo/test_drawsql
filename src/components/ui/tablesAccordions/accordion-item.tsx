@@ -4,7 +4,6 @@ import {
   DeleteOutlined,
   EllipsisOutlined,
 } from "@ant-design/icons";
-import { useState } from "react";
 import TableFields from "./tableFields";
 import { Dropdown, MenuProps } from "antd";
 import { useTablesStore } from "@/stores/tablesStores";
