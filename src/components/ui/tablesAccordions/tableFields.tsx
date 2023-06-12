@@ -1,7 +1,7 @@
 import { DeleteOutlined, EllipsisOutlined } from "@ant-design/icons";
 import { Dropdown, type MenuProps } from "antd";
 import { type field } from "./accordion-item";
-import { type ChangeEvent } from "react";
+import { useState, type ChangeEvent } from "react";
 import { useTablesStore } from "@/stores/tablesStores";
 
 type TableFieldsProps = {
@@ -17,6 +17,13 @@ export default function TableFields({
 }: TableFieldsProps) {
   const inputClasses =
     "border border-sky-200 p-2 rounded-md w-1/2 transition-colors hover:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-300";
+  const [columnField, setColumnField] = useState({
+    columnName: field.columnName,
+    columnType: field.columnType,
+  });
+  const updateFieldsForTable = useTablesStore(
+    (state) => state.updateFieldsForTable
+  );
 
   const removeColumnFromTable = useTablesStore(
     (state) => state.removeColumnFromTable
@@ -30,7 +37,10 @@ export default function TableFields({
 
   const onChangeField = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log(tableName, fieldIndex, name, value);
+    const newColumnField: field = { ...columnField, [name]: value };
+
+    setColumnField(newColumnField);
+    updateFieldsForTable(tableName, fieldIndex, newColumnField);
   };
 
   const items: MenuProps["items"] = [
@@ -51,16 +61,16 @@ export default function TableFields({
     <div className="tableFields flex flex-row justify-center items-center w-full gap-2 hover:bg-slate-100 p-2">
       <input
         type="text"
-        name="fieldName"
+        name="columnName"
         className={inputClasses}
-        value={field.columnName}
+        value={columnField.columnName}
         onChange={(e) => onChangeField(e)}
       />
       <input
         type="text"
-        name="fieldType"
+        name="columnType"
         className={`${inputClasses} w-1/3`}
-        value={field.columnType}
+        value={columnField.columnType}
         onChange={(e) => onChangeField(e)}
       />
       <Dropdown menu={menuProps} placement="bottomLeft" trigger={["click"]}>

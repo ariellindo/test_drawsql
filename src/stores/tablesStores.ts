@@ -18,6 +18,11 @@ type TablesStore = {
     tableName: string,
     position: { x: number; y: number }
   ) => void;
+  updateFieldsForTable: (
+    tableName: string,
+    fieldIndex: number,
+    field: field
+  ) => void;
 };
 
 export const useTablesStore = create<TablesStore>((set) => ({
@@ -41,6 +46,24 @@ export const useTablesStore = create<TablesStore>((set) => ({
       const newTable = {
         ...table,
         fields: [...table.fields, field],
+      };
+
+      return {
+        tables: state.tables.map((table) =>
+          table.tableName === tableName ? newTable : table
+        ),
+      };
+    }),
+  updateFieldsForTable: (tableName: string, fieldIndex: number, field: field) =>
+    set((state) => {
+      const table = state.tables.find((t) => t.tableName === tableName);
+      if (!table) return state;
+
+      table.fields[fieldIndex] = field;
+
+      const newTable = {
+        ...table,
+        fields: table.fields,
       };
 
       return {
