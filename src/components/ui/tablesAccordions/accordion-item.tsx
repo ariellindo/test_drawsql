@@ -14,6 +14,8 @@ export type AccordionItemProps = {
     tableName: string;
     fields: field[];
   };
+  isOpen: boolean;
+  toggleTable: (tableName: string) => void;
 };
 
 export type field = {
@@ -30,14 +32,17 @@ export type columnType =
   | "float"
   | "double";
 
-export default function AccordionItem({ data }: AccordionItemProps) {
-  const [itemOpen, setItemOpen] = useState(false);
+export default function AccordionItem({
+  data,
+  isOpen,
+  toggleTable,
+}: AccordionItemProps) {
   const { tableName, fields } = data;
   const addColumnToTable = useTablesStore((state) => state.addColumnToTable);
   const tables = useTablesStore((state) => state.tables);
 
   const toggleItem = () => {
-    setItemOpen(!itemOpen);
+    toggleTable(tableName);
   };
 
   function addColumn({ tableName }: { tableName: string }): void {
@@ -77,7 +82,7 @@ export default function AccordionItem({ data }: AccordionItemProps) {
         onClick={() => toggleItem()}
       >
         <div className="flex items-center">
-          {itemOpen ? <CaretDownOutlined /> : <CaretRightOutlined />}
+          {isOpen ? <CaretDownOutlined /> : <CaretRightOutlined />}
           <span className="ml-2">{tableName}</span>
         </div>
 
@@ -93,7 +98,7 @@ export default function AccordionItem({ data }: AccordionItemProps) {
 
       <div
         className={`AccordionItemContent ${
-          itemOpen ? "h-auto" : "h-0 overflow-hidden"
+          isOpen ? "h-auto" : "h-0 overflow-hidden"
         }`}
       >
         <div className={`accordionItemContent w-full min-h-14`}>
