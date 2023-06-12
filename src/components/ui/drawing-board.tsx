@@ -40,6 +40,7 @@ export default function DrawingBoard() {
 
   const handleNodeDrag = useCallback(
     (event: React.MouseEvent, node: any) => {
+      console.log(node.position);
       updateTablePosition(node.id, node.position);
     },
     [updateTablePosition]
@@ -53,7 +54,7 @@ export default function DrawingBoard() {
         fitView
         nodeTypes={nodeTypes}
         style={rfStyle}
-        onNodeDrag={handleNodeDrag}
+        onNodeDragStop={handleNodeDrag}
       >
         <Controls position="bottom-right" />
         <MiniMap position="bottom-left" />
