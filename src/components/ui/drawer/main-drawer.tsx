@@ -15,6 +15,7 @@ import { useTablesStore } from "@/stores/tablesStores";
 import { Table } from "@/stores/tablesStores";
 
 export const emptyTable: Table = {
+  id: "",
   tableName: "",
   position: { x: 0, y: 100 },
   fields: [

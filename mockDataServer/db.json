@@ -1,6 +1,7 @@
 {
   "tables": [
     {
+      "id": "0",
       "tableName": "table_1",
       "fields": [
         {
@@ -12,9 +13,14 @@
           "columnName": "column2",
           "columnType": "string"
         }
-      ]
+      ],
+      "position": {
+        "x": 196.99986057883436,
+        "y": 9.085076718900922
+      }
     },
     {
+      "id": "1",
       "tableName": "table_2",
       "fields": [
         {
@@ -25,6 +31,52 @@
         {
           "columnName": "column2",
           "columnType": "string"
+        }
+      ],
+      "position": {
+        "x": 186.5423989382848,
+        "y": 99.71283121841796
+      }
+    },
+    {
+      "id": "2",
+      "tableName": "Table_3",
+      "position": {
+        "x": -81.5,
+        "y": 137.5
+      },
+      "fields": [
+        {
+          "columnName": "id",
+          "columnType": "int"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "tableName": "Table_4",
+      "position": {
+        "x": -63,
+        "y": -10
+      },
+      "fields": [
+        {
+          "columnName": "id",
+          "columnType": "int"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "tableName": "Table_5",
+      "position": {
+        "x": -40.5,
+        "y": -80.5
+      },
+      "fields": [
+        {
+          "columnName": "id",
+          "columnType": "int"
         }
       ]
     }

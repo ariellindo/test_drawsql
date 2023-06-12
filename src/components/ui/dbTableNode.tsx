@@ -21,7 +21,7 @@ export default function DbTable({ data, isConnectable }: any) {
         <div
           key={index}
           className={
-            "tableField group hover:bg-sky-50 text-sm w-full transition-colors"
+            "tableField group hover:bg-sky-50 text-sm w-full transition-colors flex flex-row justify-between items-center text-left py-1 px-2"
           }
         >
           {selectedTable === data.label && (
@@ -32,13 +32,15 @@ export default function DbTable({ data, isConnectable }: any) {
             />
           )}
 
-          <div className={style.fieldRow}>
-            <div className={"fieldName group-hover:text-purple-500 mr-4"}>
-              {field.columnName}
-            </div>
-            <div className="fieldType text-slate-400 group-hover:text-purple-500">
-              {field.columnType}
-            </div>
+          <div
+            className={
+              "fieldName group-hover:text-purple-500 mr-4 min-w-[160px]"
+            }
+          >
+            {field.columnName}
+          </div>
+          <div className="fieldType text-slate-400 group-hover:text-purple-500">
+            {field.columnType}
           </div>
 
           {selectedTable === data.label && (

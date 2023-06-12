@@ -2,6 +2,7 @@ import { Field } from "@/components/ui/tablesAccordions/accordion-item";
 import { create } from "zustand";
 
 export type Table = {
+  id: string;
   tableName: string;
   position: { x: number; y: number };
   fields: Field[];
@@ -33,6 +34,7 @@ export const useTablesStore = create<TablesStore>((set) => ({
       const newTable = {
         ...table,
         tableName: `Table_${state.tables.length + 1}`,
+        id: state.tables.length.toString(),
       };
 
       return { tables: [...state.tables, newTable] };
