@@ -33,10 +33,9 @@ export const useTablesStore = create<TablesStore>((set) => ({
     set((state) => {
       const newTable = {
         ...table,
-        tableName: `Table_${state.tables.length + 1}`,
-        id: state.tables.length.toString(),
+        tableName: `Table_${+state.tables[state.tables.length - 1].id + 1}`,
+        id: (+state.tables[state.tables.length - 1].id + 1).toString(),
       };
-
       return { tables: [...state.tables, newTable] };
     });
   },
