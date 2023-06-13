@@ -28,10 +28,19 @@ async function createTables(tables: Table[] | Table) {
   return res.json();
 }
 
+async function removeTable(tableId: string) {
+  const tableUrl = `http://localhost:4000/tables/${tableId}`;
+  const res = await fetch(tableUrl, {
+    method: "DELETE",
+  });
+  return res.json();
+}
+
 const schemas = {
   getTables,
   updateTables,
   createTables,
+  removeTable,
 };
 
 export default schemas;

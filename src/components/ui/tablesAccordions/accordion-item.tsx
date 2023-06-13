@@ -6,7 +6,8 @@ import {
 } from "@ant-design/icons";
 import TableFields from "./tableFields";
 import { Dropdown, MenuProps } from "antd";
-import { useTablesStore } from "@/stores/tablesStores";
+import { Table, useTablesStore } from "@/stores/tablesStores";
+import api from "@/api";
 
 export type AccordionItemProps = {
   data: {
@@ -39,6 +40,7 @@ export default function AccordionItem({
   const { tableName, fields } = data;
   const addColumnToTable = useTablesStore((state) => state.addColumnToTable);
   const tables = useTablesStore((state) => state.tables);
+  const removeTable = useTablesStore((state) => state.removeTable);
 
   const toggleItem = () => {
     toggleTable(tableName);
@@ -56,8 +58,14 @@ export default function AccordionItem({
     addColumnToTable(tableName, newField);
   }
 
-  const handleMenuClick: MenuProps["onClick"] = (e) => {
-    console.log("click", e);
+  const handleMenuClick: MenuProps["onClick"] = async (e) => {
+    e.domEvent.stopPropagation();
+    removeTable(tableName);
+
+    const tableId = tables.find(
+      (table: Table) => table.tableName === tableName
+    )?.id;
+    tableId && (await api.schemas.removeTable(tableId.toString()));
   };
 
   const items: MenuProps["items"] = [
