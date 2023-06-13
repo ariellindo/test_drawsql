@@ -40,7 +40,6 @@ export default function DrawingBoard() {
 
   const handleNodeDrag = useCallback(
     (event: React.MouseEvent, node: any) => {
-      console.log(node.position);
       updateTablePosition(node.id, node.position);
     },
     [updateTablePosition]

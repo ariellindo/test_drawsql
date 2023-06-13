@@ -2,7 +2,7 @@
 
 import api from "@/api";
 import { Table, useTablesStore } from "@/stores/tablesStores";
-import { SyncOutlined } from "@ant-design/icons";
+import { DownloadOutlined, SyncOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 
 export default function Header({ title }: { title: string }) {
@@ -44,6 +44,11 @@ export default function Header({ title }: { title: string }) {
     initTables(await api.schemas.getTables());
   };
 
+  const downloadPrismaFile = async () => {
+    await api.model.createPrisma({ tables: tables });
+    console.log("downloadPrismaFile");
+  };
+
   return (
     <header
       className="flex justify-between items-center h-14 bg-slate-400 text-white font-semibold relative shadow-md px-4"
@@ -51,7 +56,16 @@ export default function Header({ title }: { title: string }) {
     >
       <div>{title}</div>
 
-      <div>
+      <div className="flex flex-row gap-4">
+        <a
+          onClick={() => downloadPrismaFile()}
+          download
+          className="flex flex-row justify-center items-center bg-transparent text-white font-semibold hover:underline cursor-pointer"
+        >
+          <DownloadOutlined />
+          <span className="ml-2">Export Prisma</span>
+        </a>
+
         <button
           onClick={() => handleSyncTables()}
           className="flex flex-row justify-center items-center bg-transparent text-white font-semibold px-2 py-1 rounded hover:bg-white/30 transition-colors border border-white"
